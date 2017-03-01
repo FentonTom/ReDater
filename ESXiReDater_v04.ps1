@@ -1,9 +1,11 @@
+[CmdletBinding()]
+## To use verbose mode pass this script -Verbose
+## 
+## v01 Created by Tom Fenton 1/31/2017
+
 ## This PowerShell script will replace the dates of an ESXi log file with current dates.
 ## It extracts the date of the last entry in a file converts it to the current date and time
 ## and then updates all other dates in the file using that date as an ending point.
-## v01 Created by Tom Fenton 1/31/2017
-## v02 Updated by 
-## to include the following
 
 #Parse paramenters passed to this script or use defaults
  param(
@@ -54,7 +56,6 @@ $DeltaTime = $CurTime - $LastRowTime
 
 Write-Host " last row time is $LastRowTime "
 Write-Host " delta time is $DeltaTime "
-Write-Host " delta time is $DeltaTimeS "
 
 
 ## Loop through each line in the file and change the time 
@@ -78,16 +79,18 @@ foreach ($line in $content)
 	$NewTimeS = Get-Date($NewTime) -UFormat "%Y-%m-%dT%I:%M:%S"
 ## sample date 2017-02-07T18:05:02Z syslog[4297813]: hostd probing is done
 # Write output 
-	Write-Host "Old message is $line" -foreground yellow
+	Write-Host "." -NoNewLine
+	Write-Verbose "Old message is $line" 
 	$NewLogS = "$NewTimeS$var2" 
-	Write-Host "$RowTimeS" -foreground red
-	Write-Host "$RowDayTimeS" -foreground red
-	Write-Host "New time $NewTimeS" -foreground red
-	Write-Host "$NewLogS" -foreground green
+	Write-Verbose "$RowTimeS" 
+	Write-Verbose "$RowDayTimeS" 
+	Write-Verbose "New time $NewTimeS" 
+	Write-Verbose "$NewLogS" 
 	Add-Content $NewLogFile $NewLogS
 } # end of foreach loop
 } # end of time loop
 
-Write-Host " It took $t1 Total Seconds to process $NumLines Lines"
-Write-Host " Input file was $LogFile"
-Write-Host " Output file was $NewLogFile"
+Write-Host " "
+Write-Host "It took $t1 Total Seconds to process $NumLines Lines"
+Write-Host "Input file was $LogFile"
+Write-Host "Output file was $NewLogFile"

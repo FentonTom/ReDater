@@ -1,3 +1,5 @@
+[CmdletBinding()]
+## To print verbose out use -Verbose on command line
 ## This PowerShell script will replace the dates of a Linux log file with current dates
 ## It extracts the date of the last entry in a file converts it to the current date and time
 ## and then updates all other dates in the file using that date as an ending point.
@@ -62,14 +64,16 @@ foreach ($line in $content)
 	$NewTime = $CurTime - $TimeDiff
 	$NewTimeS = Get-Date($NewTime) -Format "MMM %d %H:%m:%s"
 # Write output 
-##	Write-Host "Old message is $line" -foreground yellow
+  	Write-Verbose "Old message is $line" 
 	$NewLogS = "$NewTimeS$var2" 
-##	Write-Host $NewLogS -foreground green
-##	Write-Host "time differance is $TimeDiff  `n" -foreground yellow
+  	Write-Verbose $NewLogS 
+  	Write-Verbose "time differance is $TimeDiff  `n" 
+  	Write-Host "." -NoNewLine -foreground green
 	Add-Content $NewLogFile $NewLogS
 }
 }
 
-Write-Host " It took $t1 Total Seconds to process $NumLines Lines"
-Write-Host " Input file was $LogFile"
-Write-Host " Output file was $NewLogFile"
+Write-Host " "
+Write-Host "It took $t1 Total Seconds to process $NumLines Lines"
+Write-Host "Input file was $LogFile"
+Write-Host "Output file was $NewLogFile"
