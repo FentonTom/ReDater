@@ -62,7 +62,8 @@ foreach ($line in $content)
 # 	$TimeDiffS = Get-Date($TimeDiff) -Format "MMM %d %H:%m:%s"
 # Create new date by subtracting delta from line date and newtime
 	$NewTime = $CurTime - $TimeDiff
-	$NewTimeS = Get-Date($NewTime) -Format "MMM %d %H:%m:%s"
+	$NewTimeS = Get-Date($NewTime) -UFormat "%b %d %T"
+##	$NewTimeS = Get-Date($NewTime) -Format "MMM %d %H:%m:%s"
 # Write output 
   	Write-Verbose "Old message is $line" 
 	$NewLogS = "$NewTimeS$var2" 

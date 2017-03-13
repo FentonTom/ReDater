@@ -76,7 +76,8 @@ foreach ($line in $content)
 # Create new date by subtracting delta from line date and newtime
 	$NewTime = $CurTime - $TimeDiff
 	## $NewTimeS = Get-Date($NewTime) -Format u 
-	$NewTimeS = Get-Date($NewTime) -UFormat "%Y-%m-%dT%H:%M:%S"
+##	NewTimeS = Get-Date($NewTime) -UFormat "%Y-%m-%dT%H:%M:%S"
+	$NewTimeS = Get-Date($NewTime) -UFormat "%Y-%m-%dT%T"
 ## sample date 2017-02-07T18:05:02Z syslog[4297813]: hostd probing is done
 # Write output 
 	Write-Host "." -NoNewLine
